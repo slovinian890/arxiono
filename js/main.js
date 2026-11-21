@@ -72,8 +72,10 @@
   stagger(".spec-list", 40);
   stagger(".steps", 50);
 
-  // ---------- Idea submission form ----------
+  // ---------- Idea submission form (only present on the home page) ----------
   var form = document.getElementById("ideaForm");
+  if (!form) return;
+
   var formGrid = form.querySelector(".form-grid");
   var formSuccess = document.getElementById("formSuccess");
   var formError = document.getElementById("formError");

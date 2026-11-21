@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>document.documentElement.classList.add('js');</script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#00140b" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://arxiono.com/community.html" />
+
+  <title>Arxiono Community | Share your project, get real feedback</title>
+  <meta name="description" content="Post what you're building, get votes and comments from other makers, and follow the people whose work you like. Arxiono's community feedback board." />
+
+  <link rel="icon" href="/assets/icon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="/assets/apple-icon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/community.css" />
+</head>
+<body class="community-body">
+
+  <header class="nav" id="nav">
+    <nav class="nav-inner">
+      <a href="/index.html" class="brand">
+        <img src="/assets/arxiono-mark.png" alt="Arxiono" class="brand-mark" width="36" height="36" />
+        <span class="brand-name">Arxiono</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="/index.html#story">Story</a>
+        <a href="/index.html#craft">Craft</a>
+        <a href="/community.html" class="active">Community</a>
+        <a href="/index.html#pitch" class="btn-plate-outline">Pitch your idea</a>
+      </div>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <div class="nav-mobile" id="navMobile">
+      <a href="/index.html#story">Story</a>
+      <a href="/index.html#craft">Craft</a>
+      <a href="/community.html">Community</a>
+      <a href="/index.html#pitch">Pitch an idea</a>
+    </div>
+  </header>
+
+  <main class="community-main">
+    <section class="community-hero">
+      <div class="container">
+        <div class="eyebrow">
+          <span class="rule"></span>
+          ARXIONO COMMUNITY
+        </div>
+        <h1 class="section-title">
+          Show what you&rsquo;re building. Get real feedback.
+        </h1>
+        <p class="community-sub">
+          Post a project, a design, a half-finished idea — the community votes,
+          comments on what to change, and you can follow the makers whose work
+          you want to keep seeing.
+        </p>
+      </div>
+    </section>
+
+    <section class="community-board">
+      <div class="container">
+
+        <div class="board-bar">
+          <div class="auth-area" id="authArea">
+            <!-- filled in by community.js depending on signed-in state -->
+          </div>
+
+          <div class="sort-toggle" role="group" aria-label="Sort projects">
+            <button type="button" class="sort-btn active" data-sort="new">New</button>
+            <button type="button" class="sort-btn" data-sort="top">Top</button>
+          </div>
+        </div>
+
+        <div id="newPostWrap" class="new-post-wrap" hidden>
+          <form id="newPostForm" class="post-form">
+            <div class="ticket-header">
+              <span class="eyebrow-small">New project</span>
+              <span class="pit-badge">Share it</span>
+            </div>
+
+            <div class="form-grid">
+              <div class="field">
+                <label for="postTitle">Title</label>
+                <input id="postTitle" name="title" type="text" required maxlength="120" placeholder="What are you building?" class="field-underline" />
+              </div>
+
+              <div class="field">
+                <label for="postDescription">Description</label>
+                <textarea id="postDescription" name="description" rows="5" required maxlength="4000" placeholder="What is it, what stage is it at, and what feedback are you after?" class="field-box"></textarea>
+              </div>
+
+              <div class="form-row two-col">
+                <div class="field">
+                  <label for="postLink">Link (optional)</label>
+                  <input id="postLink" name="link" type="url" placeholder="https://..." class="field-underline" />
+                </div>
+                <div class="field">
+                  <label for="postImage">Image (optional)</label>
+                  <input id="postImage" name="image" type="file" accept="image/*" class="field-file" />
+                </div>
+              </div>
+
+              <div class="form-error" id="postError" hidden></div>
+
+              <div class="post-form-actions">
+                <button type="button" class="link-reset" id="cancelPost">Cancel</button>
+                <button type="submit" class="btn-plate btn-plate-primary" id="postSubmitBtn">
+                  <span class="btn-label">Post it</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div id="feed" class="feed" aria-live="polite">
+          <p class="feed-status" id="feedStatus">Loading projects…</p>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="/assets/arxiono-mark.png" alt="Arxiono" width="28" height="28" />
+          <div>
+            <div class="footer-name">Arxiono</div>
+            <div class="footer-tag">Mobile app studio</div>
+          </div>
+        </div>
+        <div class="footer-contact">
+          <a href="mailto:hello@arxiono.com">hello@arxiono.com</a>
+          <span class="footer-location">Remote-first &middot; Worldwide</span>
+        </div>
+      </div>
+
+      <div class="pinstripe"></div>
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 Arxiono. All rights reserved.</span>
+        <nav class="footer-nav">
+          <a href="/index.html#story">Story</a>
+          <a href="/index.html#craft">Craft</a>
+          <a href="/community.html">Community</a>
+          <a href="/index.html#pitch">Pitch</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Auth modal -->
+  <div class="modal-overlay" id="authModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="authModalTitle">
+      <button type="button" class="modal-close" id="authModalClose" aria-label="Close">&times;</button>
+
+      <div class="modal-tabs">
+        <button type="button" class="modal-tab active" data-tab="login">Log in</button>
+        <button type="button" class="modal-tab" data-tab="signup">Sign up</button>
+      </div>
+
+      <h2 id="authModalTitle" class="modal-title">Welcome back</h2>
+
+      <form id="loginForm" class="auth-form">
+        <div class="field">
+          <label for="loginEmail">Email</label>
+          <input id="loginEmail" type="email" required class="field-underline" />
+        </div>
+        <div class="field">
+          <label for="loginPassword">Password</label>
+          <input id="loginPassword" type="password" required minlength="6" class="field-underline" />
+        </div>
+        <div class="form-error" id="loginError" hidden></div>
+        <button type="submit" class="btn-plate btn-plate-primary auth-submit">
+          <span class="btn-label">Log in</span>
+        </button>
+      </form>
+
+      <form id="signupForm" class="auth-form" hidden>
+        <div class="field">
+          <label for="signupUsername">Username</label>
+          <input id="signupUsername" type="text" required minlength="3" maxlength="24" pattern="[a-zA-Z0-9_]+" title="Letters, numbers and underscores only" class="field-underline" />
+        </div>
+        <div class="field">
+          <label for="signupEmail">Email</label>
+          <input id="signupEmail" type="email" required class="field-underline" />
+        </div>
+        <div class="field">
+          <label for="signupPassword">Password</label>
+          <input id="signupPassword" type="password" required minlength="6" class="field-underline" />
+        </div>
+        <div class="form-error" id="signupError" hidden></div>
+        <p class="form-footnote">We'll email you a confirmation link before you can post.</p>
+        <button type="submit" class="btn-plate btn-plate-primary auth-submit">
+          <span class="btn-label">Create account</span>
+        </button>
+      </form>
+
+      <div class="auth-confirm" id="authConfirm" hidden>
+        <p>Check your email for a confirmation link, then come back and log in.</p>
+        <button type="button" class="btn-plate btn-plate-primary auth-submit" id="authConfirmOk">Got it</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- project card template -->
+  <template id="projectCardTemplate">
+    <article class="project-card">
+      <div class="vote-col">
+        <button type="button" class="vote-btn vote-up" data-vote="1" aria-label="Upvote">&#9650;</button>
+        <span class="vote-score">0</span>
+        <button type="button" class="vote-btn vote-down" data-vote="-1" aria-label="Downvote">&#9660;</button>
+      </div>
+      <div class="project-body">
+        <div class="project-head">
+          <h3 class="project-title"></h3>
+          <div class="project-meta">
+            by <button type="button" class="author-link"></button>
+            <button type="button" class="follow-btn">Follow</button>
+            <span class="project-time"></span>
+          </div>
+        </div>
+        <p class="project-description"></p>
+        <img class="project-image" hidden alt="" />
+        <a class="project-link" target="_blank" rel="noopener" hidden>Visit project &#8599;</a>
+        <div class="project-footer">
+          <button type="button" class="comments-toggle">
+            <span class="comment-count">0</span> comments
+          </button>
+        </div>
+        <div class="comments-section" hidden>
+          <div class="comments-list"></div>
+          <form class="comment-form">
+            <input type="text" class="comment-input" placeholder="Add a comment…" maxlength="2000" required />
+            <button type="submit" class="btn-plate-outline">Send</button>
+          </form>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <template id="commentTemplate">
+    <div class="comment">
+      <span class="comment-author"></span>
+      <span class="comment-body"></span>
+    </div>
+  </template>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/js/supabase-config.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="/js/community.js"></script>
+</body>
+</html>
