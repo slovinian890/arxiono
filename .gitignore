@@ -14,3 +14,6 @@ npm-debug.log*
 
 # vercel
 .vercel
+
+# local tooling state
+.claude
