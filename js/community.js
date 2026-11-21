@@ -1,17 +1,19 @@
 (function () {
   "use strict";
 
-  if (!window.supabase || !window.SUPABASE_URL || window.SUPABASE_URL.includes("YOUR-PROJECT")) {
-    document.getElementById("feedStatus").textContent =
-      "Community isn't configured yet — add your Supabase URL and anon key to js/supabase-config.js.";
+  var auth = window.ArxionoAuth;
+
+  if (!auth || !auth.ready) {
+    var fs = document.getElementById("feedStatus");
+    if (fs) {
+      fs.textContent = "Community isn't configured yet — add your Supabase URL and anon key to js/supabase-config.js.";
+    }
     return;
   }
 
-  var sb = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+  var sb = auth.sb;
 
   var state = {
-    user: null,
-    profile: null,
     projects: [],
     votesByProject: {},
     followingIds: new Set(),
@@ -19,7 +21,7 @@
   };
 
   // ---------- DOM refs ----------
-  var authArea = document.getElementById("authArea");
+  var boardActions = document.getElementById("authArea");
   var feed = document.getElementById("feed");
   var feedStatus = document.getElementById("feedStatus");
   var newPostWrap = document.getElementById("newPostWrap");
@@ -27,17 +29,6 @@
   var postError = document.getElementById("postError");
   var postSubmitBtn = document.getElementById("postSubmitBtn");
   var cancelPostBtn = document.getElementById("cancelPost");
-
-  var authModal = document.getElementById("authModal");
-  var authModalClose = document.getElementById("authModalClose");
-  var authModalTitle = document.getElementById("authModalTitle");
-  var loginForm = document.getElementById("loginForm");
-  var signupForm = document.getElementById("signupForm");
-  var loginError = document.getElementById("loginError");
-  var signupError = document.getElementById("signupError");
-  var authConfirm = document.getElementById("authConfirm");
-  var authConfirmOk = document.getElementById("authConfirmOk");
-  var authTabs = document.getElementById("authModal").querySelectorAll(".modal-tab");
 
   var cardTemplate = document.getElementById("projectCardTemplate");
   var commentTemplate = document.getElementById("commentTemplate");
@@ -59,181 +50,41 @@
     el.textContent = message;
     el.hidden = false;
   }
-
   function hideError(el) {
     el.hidden = true;
   }
 
-  function openAuthModal(tab) {
-    authModal.hidden = false;
-    setAuthTab(tab || "login");
-  }
+  // ---------- board actions (New post button, only when signed in) ----------
+  function renderBoardActions() {
+    boardActions.innerHTML = "";
+    if (!auth.user) return;
 
-  function closeAuthModal() {
-    authModal.hidden = true;
-    hideError(loginError);
-    hideError(signupError);
-    loginForm.reset();
-    signupForm.reset();
-  }
-
-  function setAuthTab(tab) {
-    var isLogin = tab === "login";
-    loginForm.hidden = !isLogin;
-    signupForm.hidden = isLogin;
-    authConfirm.hidden = true;
-    authModalTitle.textContent = isLogin ? "Welcome back" : "Join the community";
-    authTabs.forEach(function (btn) {
-      btn.classList.toggle("active", btn.dataset.tab === tab);
-      btn.hidden = false;
+    var newBtn = document.createElement("button");
+    newBtn.type = "button";
+    newBtn.className = "btn-plate-outline";
+    newBtn.textContent = "New post";
+    newBtn.addEventListener("click", function () {
+      newPostWrap.hidden = !newPostWrap.hidden;
     });
+    boardActions.appendChild(newBtn);
   }
 
-  function showSignupConfirmation() {
-    loginForm.hidden = true;
-    signupForm.hidden = true;
-    authConfirm.hidden = false;
-    authModalTitle.textContent = "Almost there";
-    authTabs.forEach(function (btn) {
-      btn.hidden = true;
-    });
-  }
-
-  // ---------- auth ----------
-  async function refreshSession() {
-    var { data } = await sb.auth.getSession();
-    state.user = data.session ? data.session.user : null;
-
-    if (state.user) {
-      var { data: profile } = await sb
-        .from("profiles")
-        .select("id, username")
-        .eq("id", state.user.id)
-        .maybeSingle();
-      state.profile = profile;
-
-      var { data: follows } = await sb
-        .from("follows")
-        .select("following_id")
-        .eq("follower_id", state.user.id);
-      state.followingIds = new Set((follows || []).map(function (f) { return f.following_id; }));
-    } else {
-      state.profile = null;
+  async function loadFollowing() {
+    if (!auth.user) {
       state.followingIds = new Set();
+      return;
     }
-
-    renderAuthArea();
-    renderFeed();
+    var { data: follows } = await sb
+      .from("follows")
+      .select("following_id")
+      .eq("follower_id", auth.user.id);
+    state.followingIds = new Set((follows || []).map(function (f) { return f.following_id; }));
   }
 
-  function renderAuthArea() {
-    authArea.innerHTML = "";
-
-    if (state.user && state.profile) {
-      var who = document.createElement("span");
-      who.className = "whoami";
-      var strong = document.createElement("strong");
-      strong.textContent = "@" + state.profile.username;
-      who.appendChild(document.createTextNode("Signed in as "));
-      who.appendChild(strong);
-
-      var newBtn = document.createElement("button");
-      newBtn.type = "button";
-      newBtn.className = "btn-plate-outline";
-      newBtn.textContent = "New post";
-      newBtn.addEventListener("click", function () {
-        newPostWrap.hidden = !newPostWrap.hidden;
-      });
-
-      var logoutBtn = document.createElement("button");
-      logoutBtn.type = "button";
-      logoutBtn.className = "link-reset";
-      logoutBtn.textContent = "Log out";
-      logoutBtn.addEventListener("click", async function () {
-        await sb.auth.signOut();
-        newPostWrap.hidden = true;
-        refreshSession();
-      });
-
-      authArea.appendChild(who);
-      authArea.appendChild(newBtn);
-      authArea.appendChild(logoutBtn);
-    } else {
-      var loginBtn = document.createElement("button");
-      loginBtn.type = "button";
-      loginBtn.className = "btn-plate-outline";
-      loginBtn.textContent = "Log in";
-      loginBtn.addEventListener("click", function () {
-        openAuthModal("login");
-      });
-
-      var signupBtn = document.createElement("button");
-      signupBtn.type = "button";
-      signupBtn.className = "btn-plate btn-plate-primary";
-      signupBtn.textContent = "Sign up";
-      signupBtn.addEventListener("click", function () {
-        openAuthModal("signup");
-      });
-
-      authArea.appendChild(loginBtn);
-      authArea.appendChild(signupBtn);
-    }
-  }
-
-  authTabs.forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      setAuthTab(btn.dataset.tab);
-    });
-  });
-  authModalClose.addEventListener("click", closeAuthModal);
-  authModal.addEventListener("click", function (e) {
-    if (e.target === authModal) closeAuthModal();
-  });
-  authConfirmOk.addEventListener("click", closeAuthModal);
-
-  loginForm.addEventListener("submit", async function (e) {
-    e.preventDefault();
-    hideError(loginError);
-    var email = document.getElementById("loginEmail").value.trim();
-    var password = document.getElementById("loginPassword").value;
-
-    var { error } = await sb.auth.signInWithPassword({ email: email, password: password });
-    if (error) {
-      showError(loginError, error.message);
-      return;
-    }
-    closeAuthModal();
-    refreshSession();
-  });
-
-  signupForm.addEventListener("submit", async function (e) {
-    e.preventDefault();
-    hideError(signupError);
-    var username = document.getElementById("signupUsername").value.trim();
-    var email = document.getElementById("signupEmail").value.trim();
-    var password = document.getElementById("signupPassword").value;
-
-    var { data: existing } = await sb
-      .from("profiles")
-      .select("id")
-      .eq("username", username)
-      .maybeSingle();
-    if (existing) {
-      showError(signupError, "That username is taken — try another.");
-      return;
-    }
-
-    var { error } = await sb.auth.signUp({
-      email: email,
-      password: password,
-      options: { data: { username: username } },
-    });
-    if (error) {
-      showError(signupError, error.message);
-      return;
-    }
-
-    showSignupConfirmation();
+  auth.onChange(function () {
+    renderBoardActions();
+    loadFollowing().then(renderFeed);
+    if (!auth.user) newPostWrap.hidden = true;
   });
 
   // ---------- new post ----------
@@ -247,8 +98,8 @@
     e.preventDefault();
     hideError(postError);
 
-    if (!state.user) {
-      openAuthModal("login");
+    if (!auth.user) {
+      auth.requireLogin();
       return;
     }
 
@@ -263,14 +114,14 @@
     try {
       var imageUrl = null;
       if (file) {
-        var path = state.user.id + "/" + Date.now() + "-" + file.name.replace(/[^a-zA-Z0-9.\-_]/g, "_");
+        var path = auth.user.id + "/" + Date.now() + "-" + file.name.replace(/[^a-zA-Z0-9.\-_]/g, "_");
         var { error: uploadError } = await sb.storage.from("project-images").upload(path, file);
         if (uploadError) throw uploadError;
         imageUrl = sb.storage.from("project-images").getPublicUrl(path).data.publicUrl;
       }
 
       var { error: insertError } = await sb.from("projects").insert({
-        user_id: state.user.id,
+        user_id: auth.user.id,
         title: title,
         description: description,
         link: link || null,
@@ -325,7 +176,7 @@
           state.votesByProject[v.project_id] = { score: 0, myVote: 0 };
         }
         state.votesByProject[v.project_id].score += v.value;
-        if (state.user && v.user_id === state.user.id) {
+        if (auth.user && v.user_id === auth.user.id) {
           state.votesByProject[v.project_id].myVote = v.value;
         }
       });
@@ -373,7 +224,7 @@
     authorLink.appendChild(escapeNode("@" + username));
 
     var followBtn = card.querySelector(".follow-btn");
-    if (state.user && project.user_id === state.user.id) {
+    if (auth.user && project.user_id === auth.user.id) {
       followBtn.hidden = true;
     } else {
       var isFollowing = state.followingIds.has(project.user_id);
@@ -428,8 +279,8 @@
     var commentForm = card.querySelector(".comment-form");
     commentForm.addEventListener("submit", async function (e) {
       e.preventDefault();
-      if (!state.user) {
-        openAuthModal("login");
+      if (!auth.user) {
+        auth.requireLogin();
         return;
       }
       var input = commentForm.querySelector(".comment-input");
@@ -438,7 +289,7 @@
 
       var { error } = await sb.from("comments").insert({
         project_id: project.id,
-        user_id: state.user.id,
+        user_id: auth.user.id,
         body: body,
       });
       if (!error) {
@@ -472,8 +323,8 @@
   }
 
   async function castVote(projectId, value, scoreEl, upBtn, downBtn) {
-    if (!state.user) {
-      openAuthModal("login");
+    if (!auth.user) {
+      auth.requireLogin();
       return;
     }
 
@@ -481,12 +332,12 @@
     var removing = info.myVote === value;
 
     if (removing) {
-      await sb.from("votes").delete().eq("project_id", projectId).eq("user_id", state.user.id);
+      await sb.from("votes").delete().eq("project_id", projectId).eq("user_id", auth.user.id);
       info.score -= value;
       info.myVote = 0;
     } else {
       var delta = value - info.myVote;
-      await sb.from("votes").upsert({ project_id: projectId, user_id: state.user.id, value: value });
+      await sb.from("votes").upsert({ project_id: projectId, user_id: auth.user.id, value: value });
       info.score += delta;
       info.myVote = value;
     }
@@ -498,16 +349,16 @@
   }
 
   async function toggleFollow(targetUserId) {
-    if (!state.user) {
-      openAuthModal("login");
+    if (!auth.user) {
+      auth.requireLogin();
       return;
     }
 
     if (state.followingIds.has(targetUserId)) {
-      await sb.from("follows").delete().eq("follower_id", state.user.id).eq("following_id", targetUserId);
+      await sb.from("follows").delete().eq("follower_id", auth.user.id).eq("following_id", targetUserId);
       state.followingIds.delete(targetUserId);
     } else {
-      await sb.from("follows").insert({ follower_id: state.user.id, following_id: targetUserId });
+      await sb.from("follows").insert({ follower_id: auth.user.id, following_id: targetUserId });
       state.followingIds.add(targetUserId);
     }
 
@@ -515,10 +366,5 @@
     renderFeed();
   }
 
-  sb.auth.onAuthStateChange(function () {
-    refreshSession();
-  });
-
-  refreshSession();
   loadProjects();
 })();

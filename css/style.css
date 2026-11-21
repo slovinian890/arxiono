@@ -1143,3 +1143,132 @@ select.field-box {
 .footer-nav a:hover {
   color: var(--paper-dim);
 }
+
+/* ===================== Nav auth widget (shared across pages) ===================== */
+
+.nav-auth {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.nav-auth-link {
+  font-family: var(--font-condensed);
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--paper-dim);
+  background: none;
+  border: none;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+.nav-auth-link:hover {
+  color: var(--paper);
+}
+
+.nav-auth-user {
+  font-family: var(--font-condensed);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--brass);
+  white-space: nowrap;
+}
+
+.nav-mobile .nav-auth {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  padding-top: 16px;
+  margin-top: 4px;
+  border-top: 1px solid rgba(28, 74, 50, 0.6);
+}
+
+/* ===================== Auth modal (shared) ===================== */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 10, 6, 0.75);
+}
+
+.modal {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  background: var(--bg-soft);
+  border: 1px solid var(--surface-line);
+  border-radius: 16px;
+  padding: 32px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--muted);
+}
+.modal-close:hover {
+  color: var(--paper);
+}
+
+.modal-tabs {
+  display: flex;
+  gap: 4px;
+  border: 1px solid var(--surface-line);
+  border-radius: 6px;
+  padding: 3px;
+  margin-bottom: 24px;
+  width: fit-content;
+}
+
+.modal-tab {
+  font-family: var(--font-condensed);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: none;
+  border: none;
+  border-radius: 4px;
+  padding: 7px 16px;
+  color: var(--paper-dim);
+}
+.modal-tab.active {
+  background: var(--surface);
+  color: var(--paper);
+}
+
+.modal-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.4rem;
+  color: var(--paper);
+  margin-bottom: 20px;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.auth-submit {
+  width: 100%;
+  margin-top: 4px;
+}
+
+.auth-confirm p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--paper-dim);
+  margin-bottom: 20px;
+}

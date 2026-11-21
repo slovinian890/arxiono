@@ -53,20 +53,20 @@ module.exports = async (req, res) => {
     const { error } = await resend.emails.send({
       from: fromEmail,
       to: toEmail,
-      reply_to: email,
+      replyTo: email,
       subject: "New idea pitch: " + ideaTitle,
       html: html,
     });
 
     if (error) {
       console.error("Resend error:", error);
-      res.status(502).json({ error: "Couldn't send your idea right now. Please try again.", debug: error });
+      res.status(502).json({ error: "Couldn't send your idea right now. Please try again." });
       return;
     }
 
     res.status(200).json({ ok: true });
   } catch (err) {
     console.error("Unexpected error sending idea email:", err);
-    res.status(500).json({ error: "Couldn't send your idea right now. Please try again.", debug: String(err && err.message || err) });
+    res.status(500).json({ error: "Couldn't send your idea right now. Please try again." });
   }
 };

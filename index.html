@@ -72,6 +72,7 @@
         <a href="#partnership">Partnership</a>
         <a href="/community.html">Community</a>
         <a href="#pitch" class="btn-plate-outline">Pitch your idea</a>
+        <div class="nav-auth" id="navAuth"></div>
       </div>
 
       <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
@@ -85,6 +86,7 @@
       <a href="#partnership">Partnership</a>
       <a href="/community.html">Community</a>
       <a href="#pitch">Pitch an idea</a>
+      <div class="nav-auth" id="navAuthMobile"></div>
     </div>
   </header>
 
@@ -449,6 +451,63 @@
     </div>
   </footer>
 
+  <!-- Auth modal -->
+  <div class="modal-overlay" id="authModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="authModalTitle">
+      <button type="button" class="modal-close" id="authModalClose" aria-label="Close">&times;</button>
+
+      <div class="modal-tabs">
+        <button type="button" class="modal-tab active" data-tab="login">Log in</button>
+        <button type="button" class="modal-tab" data-tab="signup">Sign up</button>
+      </div>
+
+      <h2 id="authModalTitle" class="modal-title">Welcome back</h2>
+
+      <form id="loginForm" class="auth-form">
+        <div class="field">
+          <label for="loginEmail">Email</label>
+          <input id="loginEmail" type="email" required class="field-underline" />
+        </div>
+        <div class="field">
+          <label for="loginPassword">Password</label>
+          <input id="loginPassword" type="password" required minlength="6" class="field-underline" />
+        </div>
+        <div class="form-error" id="loginError" hidden></div>
+        <button type="submit" class="btn-plate btn-plate-primary auth-submit">
+          <span class="btn-label">Log in</span>
+        </button>
+      </form>
+
+      <form id="signupForm" class="auth-form" hidden>
+        <div class="field">
+          <label for="signupUsername">Username</label>
+          <input id="signupUsername" type="text" required minlength="3" maxlength="24" pattern="[a-zA-Z0-9_]+" title="Letters, numbers and underscores only" class="field-underline" />
+        </div>
+        <div class="field">
+          <label for="signupEmail">Email</label>
+          <input id="signupEmail" type="email" required class="field-underline" />
+        </div>
+        <div class="field">
+          <label for="signupPassword">Password</label>
+          <input id="signupPassword" type="password" required minlength="6" class="field-underline" />
+        </div>
+        <div class="form-error" id="signupError" hidden></div>
+        <p class="form-footnote">We'll email you a confirmation link before you can post.</p>
+        <button type="submit" class="btn-plate btn-plate-primary auth-submit">
+          <span class="btn-label">Create account</span>
+        </button>
+      </form>
+
+      <div class="auth-confirm" id="authConfirm" hidden>
+        <p>Check your email for a confirmation link, then come back and log in.</p>
+        <button type="button" class="btn-plate btn-plate-primary auth-submit" id="authConfirmOk">Got it</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/js/supabase-config.js"></script>
   <script src="/js/main.js"></script>
+  <script src="/js/auth.js"></script>
 </body>
 </html>
