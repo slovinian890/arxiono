@@ -39,9 +39,17 @@ vercel dev
 
 3. **Copy review** — the hero, story and services sections are written generically on purpose (no invented stats, team size or client names). Read through and tighten anything that doesn't match reality yet.
 
-4. **Deploy** — this is a static site plus one serverless function, ready for Vercel:
+4. **Domain** — SEO needs a real URL. `index.html` (canonical link, Open Graph/Twitter tags, JSON-LD) plus `robots.txt` and `sitemap.xml` all currently point at `https://arxiono.com/` as a placeholder. Once you know your real domain, find-and-replace `arxiono.com` everywhere in those files, and update `lastmod` in `sitemap.xml` whenever the page meaningfully changes.
+
+5. **Deploy** — this is a static site plus one serverless function, ready for Vercel:
    ```bash
    npm i -g vercel
    vercel
    ```
    Add the three `RESEND_*` env vars in the Vercel dashboard (or `vercel env add`) before going live. Any other static host (Netlify, Cloudflare Pages, GitHub Pages) can serve the site itself — you'd just need to point the form at an equivalent serverless function or a different email provider there.
+
+6. **Search Console** — once live on the real domain, add the site to [Google Search Console](https://search.google.com/search-console) and submit `https://yourdomain.com/sitemap.xml` so it gets indexed quickly.
+
+## SEO
+
+Already in place: a descriptive title/meta description, canonical URL, Open Graph + Twitter card tags (with a proper 1200×630 image), `ProfessionalService` JSON-LD structured data, `robots.txt`, `sitemap.xml`, a single `<h1>` with a clean heading hierarchy below it, descriptive `alt` text on meaningful images (decorative ones are left empty on purpose), and content that's fully visible even with JavaScript disabled (the scroll-reveal animation only activates once a tiny inline script confirms JS actually ran). The one thing you need to do is swap the placeholder domain for your real one — see "Domain" above.
