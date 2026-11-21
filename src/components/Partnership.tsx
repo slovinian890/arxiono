@@ -1,4 +1,3 @@
-import { Lock } from "lucide-react";
 import { Reveal } from "./Reveal";
 
 const STEPS = [
@@ -47,8 +46,10 @@ export function Partnership() {
               founder. We become the partner who actually ships it.
             </p>
 
-            <div className="mt-10 flex items-start gap-3 rounded-xl border border-burgundy-bright/30 bg-burgundy/10 p-5">
-              <Lock size={17} className="mt-0.5 shrink-0 text-burgundy-bright" />
+            <div className="mt-10 flex flex-col gap-4 border-t border-dashed border-surface-line pt-6 sm:flex-row sm:items-start">
+              <span className="pit-badge inline-flex shrink-0 -rotate-6 items-center justify-center self-start rounded border-2 border-burgundy-bright/70 px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-burgundy-bright">
+                Confidential
+              </span>
               <p className="text-sm leading-relaxed text-paper-dim">
                 Every idea you send us is treated as confidential. We never
                 build, discuss or shop your idea without your agreement —

@@ -75,13 +75,13 @@ export function Hero() {
         >
           <a
             href="#pitch"
-            className="group inline-flex items-center gap-2 rounded-full bg-racing-bright px-7 py-3.5 text-sm font-medium text-paper shadow-[0_0_0_1px_rgba(196,162,103,0.25)] transition-all hover:bg-racing-glow hover:text-ink"
+            className="btn-plate group inline-flex items-center gap-2 bg-racing-bright text-paper hover:bg-racing-glow hover:text-ink"
           >
             Pitch your idea
           </a>
           <a
             href="#story"
-            className="inline-flex items-center gap-2 text-sm text-paper-dim transition-colors hover:text-brass-bright"
+            className="font-condensed inline-flex items-center gap-2 text-sm uppercase tracking-wider text-paper-dim transition-colors hover:text-brass-bright"
           >
             Read how we work
             <ArrowDown size={15} className="opacity-70" />

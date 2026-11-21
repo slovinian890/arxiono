@@ -30,11 +30,11 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="hairline mt-10" />
+        <div className="pinstripe mt-10" />
 
         <div className="mt-6 flex flex-col-reverse items-start justify-between gap-4 text-xs text-muted sm:flex-row sm:items-center">
           <span>© 2026 Arxiono. All rights reserved.</span>
-          <nav className="flex gap-6">
+          <nav className="font-condensed flex gap-6 uppercase tracking-wider">
             <a href="#story" className="hover:text-paper-dim">Story</a>
             <a href="#craft" className="hover:text-paper-dim">Craft</a>
             <a href="#partnership" className="hover:text-paper-dim">Partnership</a>

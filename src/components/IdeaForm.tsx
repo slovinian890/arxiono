@@ -6,8 +6,11 @@ import { Reveal } from "./Reveal";
 
 type Status = "idle" | "loading" | "success" | "error";
 
-const inputClass =
-  "w-full rounded-lg border border-surface-line/80 px-4 py-3 text-sm text-paper placeholder:text-muted/70 transition-colors focus:border-brass";
+const fieldClass =
+  "w-full border-0 border-b border-surface-line bg-transparent px-0.5 pb-2.5 pt-1 text-sm text-paper placeholder:text-muted/50 transition-colors focus:border-brass focus:outline-none";
+
+const boxClass =
+  "w-full rounded-md border border-surface-line/80 bg-transparent px-4 py-3 text-sm text-paper placeholder:text-muted/50 transition-colors focus:border-brass focus:outline-none";
 
 export function IdeaForm() {
   const [status, setStatus] = useState<Status>("idle");
@@ -80,7 +83,7 @@ export function IdeaForm() {
             <label className="mb-2 block text-xs tracking-wide text-paper-dim">
               Your name
             </label>
-            <input required name="name" type="text" className={inputClass} placeholder="Jane Doe" />
+            <input required name="name" type="text" className={fieldClass} placeholder="Jane Doe" />
           </div>
           <div>
             <label className="mb-2 block text-xs tracking-wide text-paper-dim">
@@ -90,7 +93,7 @@ export function IdeaForm() {
               required
               name="email"
               type="email"
-              className={inputClass}
+              className={fieldClass}
               placeholder="jane@email.com"
             />
           </div>
@@ -104,7 +107,7 @@ export function IdeaForm() {
             required
             name="ideaTitle"
             type="text"
-            className={inputClass}
+            className={fieldClass}
             placeholder="What do you call it?"
           />
         </div>
@@ -117,7 +120,7 @@ export function IdeaForm() {
             required
             name="description"
             rows={6}
-            className={`${inputClass} resize-none`}
+            className={`${boxClass} resize-none`}
             placeholder="What is it, who's it for, and why does it need to exist? Rough is fine — conviction matters more than polish."
           />
         </div>
@@ -127,7 +130,7 @@ export function IdeaForm() {
             <label className="mb-2 block text-xs tracking-wide text-paper-dim">
               Where is it today?
             </label>
-            <select name="stage" className={inputClass} defaultValue="concept">
+            <select name="stage" className={`${boxClass} pr-9`} defaultValue="concept">
               <option value="concept">Just a concept</option>
               <option value="prototype">Have a prototype / designs</option>
               <option value="existing">Have an existing app</option>
@@ -140,7 +143,7 @@ export function IdeaForm() {
             <input
               name="link"
               type="url"
-              className={inputClass}
+              className={fieldClass}
               placeholder="Deck, prototype, anything useful"
             />
           </div>
@@ -168,7 +171,7 @@ export function IdeaForm() {
         <button
           type="submit"
           disabled={status === "loading"}
-          className="group mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-racing-bright px-7 py-3.5 text-sm font-medium text-paper transition-all hover:bg-racing-glow hover:text-ink disabled:cursor-not-allowed disabled:opacity-60"
+          className="btn-plate group mt-2 inline-flex items-center justify-center gap-2 bg-racing-bright text-paper hover:bg-racing-glow hover:text-ink disabled:cursor-not-allowed disabled:opacity-60"
         >
           {status === "loading" ? "Sending…" : "Send my idea"}
           {status !== "loading" && (

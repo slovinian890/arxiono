@@ -50,14 +50,14 @@ export function Nav() {
             <a
               key={l.href}
               href={l.href}
-              className="text-sm text-paper-dim transition-colors hover:text-paper"
+              className="font-condensed text-sm uppercase tracking-wider text-paper-dim transition-colors hover:text-paper"
             >
               {l.label}
             </a>
           ))}
           <a
             href="#pitch"
-            className="rounded-full border border-brass/50 bg-brass/10 px-5 py-2 text-sm text-brass transition-colors hover:bg-brass hover:text-ink"
+            className="btn-plate-outline bg-brass/10 text-brass transition-colors hover:bg-brass hover:text-ink"
           >
             Pitch your idea
           </a>
