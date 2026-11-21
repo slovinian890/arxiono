@@ -306,7 +306,7 @@
 
     var { data: projects, error } = await sb
       .from("projects")
-      .select("id, title, description, image_url, link, created_at, user_id, profiles(username), comments(count)")
+      .select("id, title, description, image_url, link, created_at, user_id, profiles!projects_user_id_fkey(username), comments(count)")
       .order("created_at", { ascending: false });
 
     if (error) {
