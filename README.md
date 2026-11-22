@@ -6,11 +6,18 @@ Premium marketing site for Arxiono, a mobile app studio — plain HTML, CSS and 
 
 ```
 index.html             the marketing page
-community.html          the community board (sign up, post, vote, comment, follow)
+community.html          the community board feed (sign up, post, vote, comment, follow)
+project.html            a single project: full post, votes, comments, progress updates
+profile.html            a maker's profile: avatar/bio, followers/following, their projects
 css/style.css           shared styling
-css/community.css       community-page-only styling
+css/community.css       community-board styling (feed, project cards, updates, modal lists)
+css/profile.css         profile-page-only styling (header, stats, projects grid)
 js/main.js              nav behaviour, scroll reveal, idea-form submission
-js/community.js         all community-board logic (talks to Supabase directly)
+js/auth.js              shared Supabase session, login/signup modal, nav auth widget
+js/feed-shared.js       helpers shared by community.js/project.js/profile.js (avatars, voting, toasts)
+js/community.js         community feed logic: new posts, combined projects+updates feed
+js/project.js           single-project page: voting, comments, posting/deleting progress updates
+js/profile.js           profile page: stats, follow/unfollow, followers/following lists, edit profile
 js/supabase-config.js   your Supabase project URL + anon key go here
 supabase/schema.sql     database schema + Row Level Security policies
 api/submit-idea.js      serverless function that emails form submissions via Resend
@@ -44,7 +51,8 @@ vercel dev
 
 3. **Community board setup**
    - Create a free project at [supabase.com](https://supabase.com).
-   - In the SQL Editor, paste and run the entire contents of `supabase/schema.sql` once. It creates the tables, a trigger that gives every new signup a profile, Row Level Security policies, and a public `project-images` storage bucket.
+   - In the SQL Editor, paste and run the entire contents of `supabase/schema.sql` once. It creates the tables (including `project_updates` for progress posts), a trigger that gives every new signup a profile, Row Level Security policies, and public `project-images` + `avatars` storage buckets.
+   - **Already have this project set up from before?** The schema file is safe to re-run in full — every statement is `create if not exists` / `drop + recreate policy`, so re-pasting the whole file picks up the `contact` column, the `project_updates` table and the `avatars` bucket without touching existing data.
    - In Settings → API, copy the **Project URL** and the **anon / publishable key** into `js/supabase-config.js`. The anon key is meant to be public — RLS is what actually secures the data.
    - Row Level Security is what stops any visitor from editing someone else's post, vote, or comment, even though the browser talks to Supabase directly with no server in between. Don't disable it.
    - By default Supabase requires email confirmation before a new account can log in — that's intentional and the UI already tells people to check their inbox.

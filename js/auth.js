@@ -144,8 +144,9 @@
     container.className = mobile ? "nav-auth" : "nav-auth";
 
     if (state.user && state.profile) {
-      var who = document.createElement("span");
+      var who = document.createElement("a");
       who.className = "nav-auth-user";
+      who.href = "/profile.html?u=" + encodeURIComponent(state.profile.username);
       who.textContent = "@" + state.profile.username;
 
       var logoutBtn = document.createElement("button");
@@ -192,7 +193,7 @@
     if (state.user) {
       var { data: profile } = await sb
         .from("profiles")
-        .select("id, username")
+        .select("id, username, bio, avatar_url")
         .eq("id", state.user.id)
         .maybeSingle();
       state.profile = profile;

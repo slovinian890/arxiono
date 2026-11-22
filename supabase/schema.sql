@@ -19,6 +19,22 @@ create table if not exists public.projects (
   description text not null check (char_length(description) between 1 and 4000),
   image_url text,
   link text,
+  contact text check (char_length(contact) <= 200),
+  category text check (category in ('startup', 'funding', 'website', 'web_app', 'mobile_app', 'other')),
+  created_at timestamptz not null default now()
+);
+
+alter table public.projects add column if not exists contact text check (char_length(contact) <= 200);
+alter table public.projects add column if not exists category text check (category in ('startup', 'funding', 'website', 'web_app', 'mobile_app', 'other'));
+create index if not exists projects_category_idx on public.projects (category);
+
+-- Progress posts an owner publishes about their own project over time.
+create table if not exists public.project_updates (
+  id uuid primary key default gen_random_uuid(),
+  project_id uuid not null references public.projects(id) on delete cascade,
+  user_id uuid not null references public.profiles(id) on delete cascade,
+  body text not null check (char_length(body) between 1 and 2000),
+  image_url text,
   created_at timestamptz not null default now()
 );
 
@@ -50,6 +66,8 @@ create index if not exists projects_created_at_idx on public.projects (created_a
 create index if not exists comments_project_id_idx on public.comments (project_id);
 create index if not exists votes_project_id_idx on public.votes (project_id);
 create index if not exists follows_following_id_idx on public.follows (following_id);
+create index if not exists project_updates_project_id_idx on public.project_updates (project_id);
+create index if not exists project_updates_created_at_idx on public.project_updates (created_at desc);
 
 -- ===================== Auto-create profile =====================
 -- When someone signs up, auth.users gets a row. This trigger copies the
@@ -86,6 +104,7 @@ alter table public.projects enable row level security;
 alter table public.comments enable row level security;
 alter table public.votes enable row level security;
 alter table public.follows enable row level security;
+alter table public.project_updates enable row level security;
 
 drop policy if exists "profiles are publicly readable" on public.profiles;
 create policy "profiles are publicly readable" on public.profiles
@@ -151,10 +170,32 @@ drop policy if exists "users can unfollow as themselves" on public.follows;
 create policy "users can unfollow as themselves" on public.follows
   for delete using (auth.uid() = follower_id);
 
--- ========================= Storage (project images) =========================
+drop policy if exists "project updates are publicly readable" on public.project_updates;
+create policy "project updates are publicly readable" on public.project_updates
+  for select using (true);
+
+drop policy if exists "project owners can post updates" on public.project_updates;
+create policy "project owners can post updates" on public.project_updates
+  for insert with check (
+    auth.uid() = user_id
+    and exists (
+      select 1 from public.projects p
+      where p.id = project_id and p.user_id = auth.uid()
+    )
+  );
+
+drop policy if exists "project owners can delete their updates" on public.project_updates;
+create policy "project owners can delete their updates" on public.project_updates
+  for delete using (auth.uid() = user_id);
+
+-- ========================= Storage (project images + avatars) =========================
 
 insert into storage.buckets (id, name, public)
 values ('project-images', 'project-images', true)
+on conflict (id) do nothing;
+
+insert into storage.buckets (id, name, public)
+values ('avatars', 'avatars', true)
 on conflict (id) do nothing;
 
 drop policy if exists "project images are publicly readable" on storage.objects;
@@ -168,3 +209,19 @@ create policy "authenticated users can upload project images" on storage.objects
 drop policy if exists "users can delete their own project images" on storage.objects;
 create policy "users can delete their own project images" on storage.objects
   for delete using (bucket_id = 'project-images' and owner = auth.uid());
+
+drop policy if exists "avatars are publicly readable" on storage.objects;
+create policy "avatars are publicly readable" on storage.objects
+  for select using (bucket_id = 'avatars');
+
+drop policy if exists "users can upload their own avatar" on storage.objects;
+create policy "users can upload their own avatar" on storage.objects
+  for insert with check (bucket_id = 'avatars' and auth.uid()::text = (storage.foldername(name))[1]);
+
+drop policy if exists "users can update their own avatar" on storage.objects;
+create policy "users can update their own avatar" on storage.objects
+  for update using (bucket_id = 'avatars' and auth.uid()::text = (storage.foldername(name))[1]);
+
+drop policy if exists "users can delete their own avatar" on storage.objects;
+create policy "users can delete their own avatar" on storage.objects
+  for delete using (bucket_id = 'avatars' and auth.uid()::text = (storage.foldername(name))[1]);

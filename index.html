@@ -10,7 +10,7 @@
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#00140b" />
+  <meta name="theme-color" content="#0a0a0a" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://arxiono.com/" />
 
@@ -36,7 +36,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="/css/style.css" />
 
@@ -57,8 +57,6 @@
 </head>
 <body>
 
-  <div class="checker-strip" id="top-flag" aria-hidden="true"></div>
-
   <header class="nav" id="nav">
     <nav class="nav-inner">
       <a href="#top" class="brand">
@@ -67,11 +65,7 @@
       </a>
 
       <div class="nav-links">
-        <a href="#story">Story</a>
-        <a href="#craft">Craft</a>
-        <a href="#partnership">Partnership</a>
         <a href="/community.html">Community</a>
-        <a href="#pitch" class="btn-plate-outline">Pitch your idea</a>
         <div class="nav-auth" id="navAuth"></div>
       </div>
 
@@ -81,11 +75,7 @@
     </nav>
 
     <div class="nav-mobile" id="navMobile">
-      <a href="#story">Story</a>
-      <a href="#craft">Craft</a>
-      <a href="#partnership">Partnership</a>
       <a href="/community.html">Community</a>
-      <a href="#pitch">Pitch an idea</a>
       <div class="nav-auth" id="navAuthMobile"></div>
     </div>
   </header>
@@ -94,243 +84,37 @@
 
     <!-- ============ HERO ============ -->
     <section id="top" class="hero">
-      <div class="hero-backdrop" aria-hidden="true">
-        <svg class="gauge-ring" viewBox="0 0 400 400">
-          <circle cx="200" cy="200" r="194" fill="none" stroke="currentColor" stroke-width="1" opacity="0.5" />
-          <circle cx="200" cy="200" r="138" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3" />
-          <line x1="200" y1="14" x2="200" y2="30" stroke="currentColor" stroke-width="1.4" opacity="0.7"/><line x1="219.44" y1="15.02" x2="218.71" y2="21.98" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="238.67" y1="18.06" x2="237.22" y2="24.91" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="257.48" y1="23.1" x2="255.31" y2="29.76" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="275.65" y1="30.08" x2="272.81" y2="36.48" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="293" y1="38.92" x2="285" y2="52.78" stroke="currentColor" stroke-width="1.4" opacity="0.7"/><line x1="309.33" y1="49.52" x2="305.21" y2="55.19" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="324.46" y1="61.78" x2="319.77" y2="66.98" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="338.22" y1="75.54" x2="333.02" y2="80.23" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="350.48" y1="90.67" x2="344.81" y2="94.79" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="361.08" y1="107" x2="347.22" y2="115" stroke="currentColor" stroke-width="1.4" opacity="0.7"/><line x1="369.92" y1="124.35" x2="363.52" y2="127.19" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="376.9" y1="142.52" x2="370.24" y2="144.69" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="381.94" y1="161.33" x2="375.09" y2="162.78" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="384.98" y1="180.56" x2="378.02" y2="181.29" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="386" y1="200" x2="370" y2="200" stroke="currentColor" stroke-width="1.4" opacity="0.7"/><line x1="384.98" y1="219.44" x2="378.02" y2="218.71" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="381.94" y1="238.67" x2="375.09" y2="237.22" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="376.9" y1="257.48" x2="370.24" y2="255.31" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="369.92" y1="275.65" x2="363.52" y2="272.81" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="361.08" y1="293" x2="347.22" y2="285" stroke="currentColor" stroke-width="1.4" opacity="0.7"/><line x1="350.48" y1="309.33" x2="344.81" y2="305.21" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="338.22" y1="324.46" x2="333.02" y2="319.77" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="324.46" y1="338.22" x2="319.77" y2="333.02" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="309.33" y1="350.48" x2="305.21" y2="344.81" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="293" y1="361.08" x2="285" y2="347.22" stroke="currentColor" stroke-width="1.4" opacity="0.7"/><line x1="275.65" y1="369.92" x2="272.81" y2="363.52" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="257.48" y1="376.9" x2="255.31" y2="370.24" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="238.67" y1="381.94" x2="237.22" y2="375.09" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="219.44" y1="384.98" x2="218.71" y2="378.02" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="200" y1="386" x2="200" y2="370" stroke="currentColor" stroke-width="1.4" opacity="0.7"/><line x1="180.56" y1="384.98" x2="181.29" y2="378.02" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="161.33" y1="381.94" x2="162.78" y2="375.09" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="142.52" y1="376.9" x2="144.69" y2="370.24" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="124.35" y1="369.92" x2="127.19" y2="363.52" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="107" y1="361.08" x2="115" y2="347.22" stroke="currentColor" stroke-width="1.4" opacity="0.7"/><line x1="90.67" y1="350.48" x2="94.79" y2="344.81" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="75.54" y1="338.22" x2="80.23" y2="333.02" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="61.78" y1="324.46" x2="66.98" y2="319.77" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="49.52" y1="309.33" x2="55.19" y2="305.21" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="38.92" y1="293" x2="52.78" y2="285" stroke="currentColor" stroke-width="1.4" opacity="0.7"/><line x1="30.08" y1="275.65" x2="36.48" y2="272.81" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="23.1" y1="257.48" x2="29.76" y2="255.31" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="18.06" y1="238.67" x2="24.91" y2="237.22" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="15.02" y1="219.44" x2="21.98" y2="218.71" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="14" y1="200" x2="30" y2="200" stroke="currentColor" stroke-width="1.4" opacity="0.7"/><line x1="15.02" y1="180.56" x2="21.98" y2="181.29" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="18.06" y1="161.33" x2="24.91" y2="162.78" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="23.1" y1="142.52" x2="29.76" y2="144.69" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="30.08" y1="124.35" x2="36.48" y2="127.19" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="38.92" y1="107" x2="52.78" y2="115" stroke="currentColor" stroke-width="1.4" opacity="0.7"/><line x1="49.52" y1="90.67" x2="55.19" y2="94.79" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="61.78" y1="75.54" x2="66.98" y2="80.23" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="75.54" y1="61.78" x2="80.23" y2="66.98" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="90.67" y1="49.52" x2="94.79" y2="55.19" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="107" y1="38.92" x2="115" y2="52.78" stroke="currentColor" stroke-width="1.4" opacity="0.7"/><line x1="124.35" y1="30.08" x2="127.19" y2="36.48" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="142.52" y1="23.1" x2="144.69" y2="29.76" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="161.33" y1="18.06" x2="162.78" y2="24.91" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="180.56" y1="15.02" x2="181.29" y2="21.98" stroke="currentColor" stroke-width="0.8" opacity="0.35"/>
-        </svg>
-        <div class="hero-vignette"></div>
-      </div>
-
-      <div class="hero-badge" aria-hidden="true">
-        <svg class="badge-ring" viewBox="0 0 200 200">
-          <defs>
-            <path id="badge-circle" d="M 100,100 m -78,0 a 78,78 0 1,1 156,0 a 78,78 0 1,1 -156,0" />
-          </defs>
-          <circle cx="100" cy="100" r="96" fill="none" stroke="currentColor" stroke-opacity="0.35" stroke-width="1" />
-          <circle cx="100" cy="100" r="60" fill="none" stroke="currentColor" stroke-opacity="0.35" stroke-width="1" />
-          <text fill="currentColor" font-size="9.2" letter-spacing="2">
-            <textPath href="#badge-circle" startoffset="0%">ARXIONO &#183; MOBILE APP STUDIO &#183; FOUNDED ON AN IDEA &#183; ARXIONO &#183; MOBILE APP STUDIO &#183; FOUNDED ON AN IDEA &#183; ARXIONO &#183; MOBILE APP STUDIO &#183; FOUNDED ON AN IDEA &#183; </textPath>
-          </text>
-        </svg>
-        <img src="/assets/arxiono-mark.png" alt="" class="badge-mark" width="64" height="64" />
-      </div>
-
       <div class="hero-content">
+        <canvas id="dotGlobe" class="dot-globe reveal" width="440" height="440" aria-hidden="true"></canvas>
+
         <div class="eyebrow reveal">
           <span class="rule"></span>
-          ARXIONO — MOBILE APP STUDIO
+          MOBILE APP STUDIO
         </div>
 
         <h1 class="hero-title reveal">
-          Every great app begins as a thought someone can&rsquo;t put down.
+          Every great app starts as a thought.
           <em>We finish it.</em>
         </h1>
 
         <p class="hero-sub reveal">
-          Arxiono designs and builds mobile apps for founders who&rsquo;d
-          rather have a partner than a vendor. Bring the idea — we bring the
-          craft, the code, and sometimes, a seat at the table.
+          Bring the idea — we bring the craft.
         </p>
 
         <div class="hero-ctas reveal">
           <a href="#pitch" class="btn-plate btn-plate-primary">Pitch your idea</a>
-          <a href="#story" class="hero-secondary-link">Read how we work <span class="arrow-down">&#8595;</span></a>
+          <a href="/community.html" class="hero-secondary-link">See the community <span class="arrow-down">&#8594;</span></a>
         </div>
+
+        <p class="hero-quote reveal">
+          &ldquo;You have to do it really good until it becomes inarguable.&rdquo;
+          <span class="hero-quote-attr">Palmer Luckey</span>
+        </p>
       </div>
 
       <div class="scroll-cue">
         <span class="eyebrow-small">Scroll</span>
         <span class="scroll-line"></span>
-      </div>
-    </section>
-
-    <!-- ============ STORY / MANIFESTO ============ -->
-    <section id="story" class="manifesto">
-      <div class="container">
-        <div class="eyebrow reveal">
-          <span class="rule"></span>
-          OUR STORY
-        </div>
-        <h2 class="section-title reveal">
-          A studio built around one belief: the idea matters more than the org chart.
-        </h2>
-
-        <div class="chapters">
-          <div class="pinstripe"></div>
-
-          <div class="chapter reveal">
-            <span class="pit-badge-circle">I</span>
-            <div>
-              <h3>The spark</h3>
-              <p>Every app we&rsquo;ve ever touched started the same way — not in a boardroom, but in someone&rsquo;s head, at an hour too late to be reasonable. A problem they couldn&rsquo;t stop turning over. We built Arxiono for that person.</p>
-            </div>
-          </div>
-          <div class="pinstripe"></div>
-
-          <div class="chapter reveal">
-            <span class="pit-badge-circle">II</span>
-            <div>
-              <h3>The craft</h3>
-              <p>We&rsquo;re a small, senior team — not an agency with a sales layer between you and the people writing code. Native iOS and Android, built properly, reviewed carefully, shipped without the shortcuts that come back to bite you in year two.</p>
-            </div>
-          </div>
-          <div class="pinstripe"></div>
-
-          <div class="chapter reveal">
-            <span class="pit-badge-circle">III</span>
-            <div>
-              <h3>The partnership</h3>
-              <p>Most studios charge by the hour and walk away. We&rsquo;d rather build alongside you — and for ideas we believe in, that can mean trading some of our time for a stake in what we build together.</p>
-            </div>
-          </div>
-          <div class="pinstripe"></div>
-
-          <div class="chapter reveal">
-            <span class="pit-badge-circle">IV</span>
-            <div>
-              <h3>The launch — and after</h3>
-              <p>Shipping to the App Store is the beginning of the real feedback loop, not the finish line. We stay close through the first releases, the first reviews, the first hard decisions about what to build next.</p>
-            </div>
-          </div>
-          <div class="pinstripe"></div>
-        </div>
-      </div>
-    </section>
-
-    <div class="checker-strip" aria-hidden="true"></div>
-
-    <!-- ============ CRAFT ============ -->
-    <section id="craft" class="craft">
-      <div class="container container-narrow">
-        <div class="eyebrow eyebrow-burgundy reveal">
-          <span class="rule rule-burgundy"></span>
-          WHAT WE BUILD
-        </div>
-        <h2 class="section-title section-title-dark reveal">
-          Full-stack craft, under one roof.
-        </h2>
-
-        <div class="spec-list">
-          <div class="pinstripe-light"></div>
-
-          <div class="spec-row reveal">
-            <span class="spec-n tone-racing">01</span>
-            <h3>Native iOS &amp; Android</h3>
-            <p>Swift and Kotlin when performance and platform feel really matter — fast, fluid, unmistakably native.</p>
-          </div>
-          <div class="pinstripe-light"></div>
-
-          <div class="spec-row reveal">
-            <span class="spec-n tone-brass">02</span>
-            <h3>Cross-platform builds</h3>
-            <p>React Native and Flutter for products that need to move at startup speed without splitting the team in two.</p>
-          </div>
-          <div class="pinstripe-light"></div>
-
-          <div class="spec-row reveal">
-            <span class="spec-n tone-burgundy">03</span>
-            <h3>MVP sprints</h3>
-            <p>From a one-page idea to a testable product in weeks, not quarters — built to prove the thing, not just demo it.</p>
-          </div>
-          <div class="pinstripe-light"></div>
-
-          <div class="spec-row reveal">
-            <span class="spec-n tone-brass">04</span>
-            <h3>Product design</h3>
-            <p>Interfaces designed like they&rsquo;ll be used daily, because they will be — clarity first, decoration second.</p>
-          </div>
-          <div class="pinstripe-light"></div>
-
-          <div class="spec-row reveal">
-            <span class="spec-n tone-racing">05</span>
-            <h3>Backend &amp; infrastructure</h3>
-            <p>APIs, databases and cloud infrastructure that stay calm under real usage, not just in the demo.</p>
-          </div>
-          <div class="pinstripe-light"></div>
-
-          <div class="spec-row reveal">
-            <span class="spec-n tone-burgundy">06</span>
-            <h3>Post-launch iteration</h3>
-            <p>Analytics, releases and roadmap decisions — we stay on as the product grows, not just until launch day.</p>
-          </div>
-          <div class="pinstripe-light"></div>
-        </div>
-      </div>
-    </section>
-
-    <div class="checker-strip" aria-hidden="true"></div>
-
-    <!-- ============ PARTNERSHIP ============ -->
-    <section id="partnership" class="partnership">
-      <div class="container">
-        <div class="partnership-grid">
-          <div class="reveal">
-            <div class="eyebrow">
-              <span class="rule"></span>
-              THE PARTNERSHIP MODEL
-            </div>
-            <h2 class="section-title">
-              Got the idea. <em class="brass-em">Not a dev team?</em>
-            </h2>
-            <p class="partnership-copy">
-              For ideas we believe in, we&rsquo;ll put in design and
-              engineering time in exchange for a share of the thing we build
-              — not instead of your vision, but alongside it. You stay the
-              founder. We become the partner who actually ships it.
-            </p>
-
-            <div class="stamp-row">
-              <span class="stamp">Confidential</span>
-              <p>
-                Every idea you send us is treated as confidential. We never
-                build, discuss or shop your idea without your agreement —
-                happy to sign an NDA before a deeper conversation.
-              </p>
-            </div>
-          </div>
-
-          <div class="steps">
-            <div class="pinstripe"></div>
-
-            <div class="step reveal">
-              <span class="pit-badge-circle pit-badge-small">01</span>
-              <div>
-                <h3>Pitch</h3>
-                <p>Tell us the idea in the form below — what it is, who it&rsquo;s for, and how far along you are. Rough is fine. Conviction matters more than polish.</p>
-              </div>
-            </div>
-            <div class="pinstripe"></div>
-
-            <div class="step reveal">
-              <span class="pit-badge-circle pit-badge-small">02</span>
-              <div>
-                <h3>Evaluate</h3>
-                <p>We read every submission ourselves. If it&rsquo;s a fit for what we can commit to, we&rsquo;ll reach out to talk it through properly.</p>
-              </div>
-            </div>
-            <div class="pinstripe"></div>
-
-            <div class="step reveal">
-              <span class="pit-badge-circle pit-badge-small">03</span>
-              <div>
-                <h3>Align</h3>
-                <p>Before a line of code is written, we agree on scope, roles and ownership in writing — whether that&rsquo;s a paid engagement, a split, or a mix of both.</p>
-              </div>
-            </div>
-            <div class="pinstripe"></div>
-
-            <div class="step reveal">
-              <span class="pit-badge-circle pit-badge-small">04</span>
-              <div>
-                <h3>Build</h3>
-                <p>We build it like it&rsquo;s ours too, because by then, it often is. Same craft, same urgency, as everything else we ship.</p>
-              </div>
-            </div>
-            <div class="pinstripe"></div>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -441,9 +225,6 @@
       <div class="footer-bottom">
         <span>&copy; 2026 Arxiono. All rights reserved.</span>
         <nav class="footer-nav">
-          <a href="#story">Story</a>
-          <a href="#craft">Craft</a>
-          <a href="#partnership">Partnership</a>
           <a href="/community.html">Community</a>
           <a href="#pitch">Pitch</a>
         </nav>
@@ -509,5 +290,6 @@
   <script src="/js/supabase-config.js"></script>
   <script src="/js/main.js"></script>
   <script src="/js/auth.js"></script>
+  <script src="/js/dot-globe.js"></script>
 </body>
 </html>

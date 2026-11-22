@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>document.documentElement.classList.add('js');</script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <meta name="robots" content="noindex, follow" />
+
+  <title>Profile | Arxiono Community</title>
+  <meta name="description" content="A maker's profile on the Arxiono community board — their projects, followers and progress." />
+
+  <link rel="icon" href="/assets/icon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="/assets/apple-icon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/community.css" />
+  <link rel="stylesheet" href="/css/profile.css" />
+</head>
+<body class="community-body">
+
+  <header class="nav" id="nav">
+    <nav class="nav-inner">
+      <a href="/index.html" class="brand">
+        <img src="/assets/arxiono-mark.png" alt="Arxiono" class="brand-mark" width="36" height="36" />
+        <span class="brand-name">Arxiono</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="/community.html" class="active">Community</a>
+        <div class="nav-auth" id="navAuth"></div>
+      </div>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <div class="nav-mobile" id="navMobile">
+      <a href="/community.html">Community</a>
+      <div class="nav-auth" id="navAuthMobile"></div>
+    </div>
+  </header>
+
+  <main class="community-main">
+    <section class="community-board profile-page">
+      <div class="container container-narrow">
+
+        <p class="feed-status" id="pageStatus" style="margin-top:140px;">Loading profile…</p>
+
+        <div class="profile-header" id="profileHeader" hidden>
+          <div class="profile-avatar-slot" id="profileAvatarSlot"></div>
+
+          <div class="profile-info">
+            <div class="profile-top-row">
+              <h1 class="profile-username" id="profileUsername"></h1>
+              <button type="button" class="btn-plate-outline" id="followBtn" hidden>Follow</button>
+              <button type="button" class="btn-plate-outline" id="editProfileBtn" hidden>Edit profile</button>
+            </div>
+
+            <div class="profile-stats">
+              <span><strong id="statProjects">0</strong> projects</span>
+              <button type="button" class="profile-stat-btn" id="statFollowers"><strong id="statFollowersCount">0</strong> followers</button>
+              <button type="button" class="profile-stat-btn" id="statFollowing"><strong id="statFollowingCount">0</strong> following</button>
+            </div>
+
+            <p class="profile-bio" id="profileBio"></p>
+          </div>
+        </div>
+
+        <div class="edit-profile-wrap" id="editProfileWrap" hidden>
+          <form id="editProfileForm" class="post-form">
+            <div class="field">
+              <label for="editBio">Bio</label>
+              <textarea id="editBio" rows="3" maxlength="280" placeholder="Tell people what you're building." class="field-box"></textarea>
+            </div>
+            <div class="field">
+              <label for="editAvatar">Avatar (optional)</label>
+              <input id="editAvatar" type="file" accept="image/*" class="field-file" />
+            </div>
+            <div class="form-error" id="editProfileError" hidden></div>
+            <div class="post-form-actions">
+              <button type="button" class="link-reset" id="cancelEditProfile">Cancel</button>
+              <button type="submit" class="btn-plate btn-plate-primary" id="editProfileSubmitBtn">
+                <span class="btn-label">Save</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div class="profile-tabs" id="profileTabs" hidden>
+          <span class="eyebrow-small">Projects</span>
+        </div>
+
+        <div class="projects-grid" id="projectsGrid"></div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="/assets/arxiono-mark.png" alt="Arxiono" width="28" height="28" />
+          <div>
+            <div class="footer-name">Arxiono</div>
+            <div class="footer-tag">Mobile app studio</div>
+          </div>
+        </div>
+        <div class="footer-contact">
+          <a href="mailto:hello@arxiono.com">hello@arxiono.com</a>
+          <span class="footer-location">Remote-first &middot; Worldwide</span>
+        </div>
+      </div>
+
+      <div class="pinstripe"></div>
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 Arxiono. All rights reserved.</span>
+        <nav class="footer-nav">
+          <a href="/community.html">Community</a>
+          <a href="/index.html#pitch">Pitch</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Auth modal -->
+  <div class="modal-overlay" id="authModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="authModalTitle">
+      <button type="button" class="modal-close" id="authModalClose" aria-label="Close">&times;</button>
+
+      <div class="modal-tabs">
+        <button type="button" class="modal-tab active" data-tab="login">Log in</button>
+        <button type="button" class="modal-tab" data-tab="signup">Sign up</button>
+      </div>
+
+      <h2 id="authModalTitle" class="modal-title">Welcome back</h2>
+
+      <form id="loginForm" class="auth-form">
+        <div class="field">
+          <label for="loginEmail">Email</label>
+          <input id="loginEmail" type="email" required class="field-underline" />
+        </div>
+        <div class="field">
+          <label for="loginPassword">Password</label>
+          <input id="loginPassword" type="password" required minlength="6" class="field-underline" />
+        </div>
+        <div class="form-error" id="loginError" hidden></div>
+        <button type="submit" class="btn-plate btn-plate-primary auth-submit">
+          <span class="btn-label">Log in</span>
+        </button>
+      </form>
+
+      <form id="signupForm" class="auth-form" hidden>
+        <div class="field">
+          <label for="signupUsername">Username</label>
+          <input id="signupUsername" type="text" required minlength="3" maxlength="24" pattern="[a-zA-Z0-9_]+" title="Letters, numbers and underscores only" class="field-underline" />
+        </div>
+        <div class="field">
+          <label for="signupEmail">Email</label>
+          <input id="signupEmail" type="email" required class="field-underline" />
+        </div>
+        <div class="field">
+          <label for="signupPassword">Password</label>
+          <input id="signupPassword" type="password" required minlength="6" class="field-underline" />
+        </div>
+        <div class="form-error" id="signupError" hidden></div>
+        <p class="form-footnote">We'll email you a confirmation link before you can post.</p>
+        <button type="submit" class="btn-plate btn-plate-primary auth-submit">
+          <span class="btn-label">Create account</span>
+        </button>
+      </form>
+
+      <div class="auth-confirm" id="authConfirm" hidden>
+        <p>Check your email for a confirmation link, then come back and log in.</p>
+        <button type="button" class="btn-plate btn-plate-primary auth-submit" id="authConfirmOk">Got it</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Followers / following modal -->
+  <div class="modal-overlay" id="peopleModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="peopleModalTitle">
+      <button type="button" class="modal-close" id="peopleModalClose" aria-label="Close">&times;</button>
+      <h2 id="peopleModalTitle" class="modal-title">Followers</h2>
+      <div class="people-list" id="peopleList"></div>
+    </div>
+  </div>
+
+  <template id="personRowTemplate">
+    <div class="person-row">
+      <span class="author-avatar"></span>
+      <a class="author-link person-row-link"></a>
+      <button type="button" class="follow-btn person-row-follow">Follow</button>
+    </div>
+  </template>
+
+  <template id="projectTileTemplate">
+    <a class="project-tile">
+      <img class="project-tile-image" hidden alt="" />
+      <div class="project-tile-fallback">
+        <span class="project-tile-title"></span>
+      </div>
+      <div class="project-tile-overlay">
+        <span class="project-tile-score"></span>
+        <span class="project-tile-comments"></span>
+      </div>
+    </a>
+  </template>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/js/supabase-config.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/feed-shared.js"></script>
+  <script src="/js/profile.js"></script>
+</body>
+</html>
